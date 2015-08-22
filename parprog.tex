@@ -1,0 +1,1087 @@
+\documentclass[%
+	%twocolumn,
+	pdftex,%              PDFTex verwenden da wir ausschliesslich ein PDF erzeugen.
+	a4paper,%             Wir verwenden A4 Papier.
+	landscape,%						Seite - Landscape
+	ngerman,
+	oneside,%             Einseitiger Druck.
+	6pt,%                 Grosse Schrift, besser geeignet f�r A4.
+	halfparskip,%         Halbe Zeile Abstand zwischen Abs�tzen.
+]{scrbook}
+
+
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{verbatim}
+\newcommand{\changefont}[3]{
+\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+\usepackage[none]{hyphenat}
+\sloppy
+
+\usepackage{graphicx}
+
+\usepackage[ngerman]{babel}
+%\usepackage{a4wide}
+\usepackage{multicol}
+%\usepackage{epsfig}
+% um eps-einzubinden
+\usepackage[landscape]{geometry}
+
+\usepackage{array}
+
+\usepackage[fleqn]{amsmath}
+%\usepackage{marvosym}
+%\uspackage{amsopn}
+
+\usepackage{color}
+\usepackage{tabularx}
+
+\usepackage{fancyvrb} %\usepackage{fancybox}
+
+\usepackage{lmodern}
+
+\usepackage{framed}
+
+\usepackage{listings}             % Include the listings-package
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{lightgrey}{gray}{0.6}
+
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background 
+  basicstyle=\linespread{0.9}\scriptsize,
+  language=Java,
+  keywordstyle=\color{blue},       % keyword style
+  commentstyle=\color{mygreen},       % keyword style
+  stringstyle=\color{mymauve},
+  frame=single,
+  framerule=1px,
+  rulecolor=\color{spec_gray}, 
+  aboveskip=\smallskipamount, 
+  belowskip=\smallskipamount,       % 
+  tabsize=2,	                   % sets default tabsize to 2 
+}
+
+%\usepackage[retainorgcmds]{IEEEtrantools} %IEEEeqnarray
+
+\usepackage{xfrac} %f"ur sch"one 1/2 etc. Br"uche: \sfrac{1}{2}
+\usepackage{cancel} %Durchstreichen in amsmath: \cance{x} oder \cancelto{0}{x}
+
+\definecolor{spec_gray}{gray}{0.5}
+\definecolor{spec_lgray}{gray}{0.65}
+\definecolor{spec_blue}{rgb}{0,0.37,1}
+\definecolor{spec_red}{rgb}{1,0.1,0.1}
+\definecolor{spec_llgray}{gray}{0.9}
+
+\newenvironment{bspbox}{%
+  \def\FrameCommand{\fboxrule 1pt \colorbox{spec_llgray}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed} 
+ 
+% cp850 fr DOS, ansinew fr Windows statt latin1
+%\renewcommand{\familydefault}{phv}
+% setzt Helvetica (sieht aus wie Arial und sieht auch nach dvi2pdf noch gut aus)
+
+\newcommand{\bsp}[1]{\vspace{-1.5mm}\begin{bspbox}\textbf{Bsp.:}  #1\end{bspbox}\vspace{-1mm}}
+
+\newenvironment{mainbox}{%
+  \def\FrameCommand{\fboxrule 1px \fcolorbox{black}{spec_blue}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+ 
+\newenvironment{subbox}{%
+  \def\FrameCommand{\fboxrule 1px \fcolorbox{black}{spec_gray}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+
+\newenvironment{subsubbox}{%
+  \def\FrameCommand{\fboxrule 1px \fcolorbox{black}{spec_lgray}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+ 
+\newenvironment{titlebox}{%
+  \def\FrameCommand{\fboxrule 1pt \fcolorbox{black}{black}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed} 
+ 
+% cp850 fr DOS, ansinew fr Windows statt latin1
+%\renewcommand{\familydefault}{phv}
+% setzt Helvetica (sieht aus wie Arial und sieht auch nach dvi2pdf noch gut aus)
+
+\newcommand{\maintopic}[1]{\setcounter{subtopicenum}{0}\setcounter{subsubtopicenum}{0}\vspace{-4px}\begin{mainbox}\textcolor{white}{\textbf{\large{\stepcounter{maintopicenum}\Roman{maintopicenum}. #1}}}\end{mainbox}\vspace{-4px}}
+
+\newcommand{\subtopic}[1]{\setcounter{subsubtopicenum}{0}\vspace{-4px}\begin{subbox}\textcolor{white}{\textbf{\stepcounter{subtopicenum}\Roman{maintopicenum}.\arabic{subtopicenum} #1}}\end{subbox}\vspace{-4px}}
+
+\newcommand{\subsubtopic}[1]{\vspace{-3px}\begin{subsubbox}\textcolor{white}{\textbf{\stepcounter{subsubtopicenum}\Roman{maintopicenum}.\arabic{subtopicenum}.\arabic{subsubtopicenum} #1}}\end{subsubbox}\vspace{-3px}}
+
+\newcommand{\titletopic}[1]{\vspace{0px}\begin{titlebox}\textcolor{red}{\textbf{#1}}\end{titlebox}\vspace{-3px}}
+
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\arcsinh}{\operatorname{arcsinh}}
+\newcommand{\arccosh}{\operatorname{arccosh}}
+\newcommand{\artanh}{\operatorname{artanh}}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\divergenz}{\operatorname{div}}
+\newcommand{\rot}{\operatorname{rot}}
+\newcommand{\D}{\,\textrm{d}}
+\newcommand{\spec}{\operatorname{spec}}
+
+\renewcommand\arraystretch{1.5}
+
+
+
+\CustomVerbatimEnvironment{myverbatim}{Verbatim}{fontsize=\footnotesize,baselinestretch=0.8,numbers=none,showspaces=false,frame=single,rulecolor=\color{spec_gray}}     
+
+\newenvironment{tight-itemize}
+{ \begin{itemize}
+    \setlength{\itemsep}{0px}
+    \setlength{\parskip}{0px}
+    \setlength{\parsep}{0px}  }
+{ \end{itemize}                  } 
+
+\oddsidemargin-2.2cm
+\evensidemargin-2.2cm
+\textwidth29cm
+\headheight0cm
+\topmargin-2.8cm
+\textheight20cm
+\parskip0cm
+\parindent0cm
+
+\parskip-0.5mm
+
+
+\pagestyle{empty}
+%\pagenumbering{arabic}
+
+\begin{document}\changefont{cmss}{m}{n}
+
+\newcounter{maintopicenum}
+\newcounter{subtopicenum}
+\newcounter{subsubtopicenum}
+
+
+\begin{multicols}{4}[][-5pt]
+
+\setlength{\abovedisplayshortskip}{-0px}
+\setlength{\abovedisplayskip}{-0px}
+\setlength{\belowdisplayskip}{-0px} %Mathmode-Commands zum Platz sparen
+\setlength{\arraycolsep}{2mm}
+
+\setlength{\topsep}{4px} %Platz sparen bei Titeln
+%\setlength{\parsep}{-20mm}
+
+\raggedbottom %whitespace am Ende der letzten Seite statt verteilen des Inhalts auf ben"otigte Seiten
+
+
+
+\titletopic{ParProg ZF \qquad \today
+\\ Kiru \& Styp \\
+HSR FS15 \qquad Prof. Luc Bläser}
+%\qquad \LaTeX{} Design Martin Stypinski
+\maintopic{Begriffe}
+\begin{tight-itemize}
+	\item{\textbf{Prozess} - Schwergewichtsprozess \\
+	Parallel laufende Programm-Instanz im System, Eigener Adressraum pro Prozess}
+	\item{\textbf{Thread} - Leichtgewichtsprozess \\
+	Parallele Ablaufsequenz innerhalb eines Programms, Teilen gleichen Adressraum im Prozess}
+	\item{\textbf{Kontextwechsel: Synchron}	Warten auf Bedingung}
+	\item{\textbf{Kontextwechsel: Asynchron} Nach gewisser Zeit soll der Thread den Prozessor freigeben, Verhindere, dass ein Thread dauerhaft Prozessor belegt}
+	\item{\textbf{Multi-Tasking: Kooperativ} Scheduler kann den Thread nicht unterbrechen, Kontextwechsel wird asynchron initiiert.}
+	\item{\textbf{Multi-Tasking: Preemptiv}
+	Scheduler kann per Timer-Interrupt unterbrechen (asynchron), Time-Sliced Scheduling.}
+\end{tight-itemize}
+%\begin{center} %
+%	\includegraphics[width=0.15\textwidth]{img/thread_model.png}
+%\end{center}
+\maintopic{Thread}
+\begin{lstlisting}
+public class First implements Runnable{
+  @Override
+  public void run(){}
+}
+public class Second extends Thread{
+  @Override public void run(){}
+}
+public static void main(int implicitFinal, final int explicitFinal){
+  new Thread(new First()).start();
+  new Second().start();
+  new Thread(() -> { int b = implicitFinal}).start();
+  new Thread(new Runnable(){
+  @Override public void run(){ int a = expicitFinal; } 
+  }).start();
+}
+public void threadMethods(){
+  Thread.sleep(10); // Running -> wait 10ms -> Ready
+  Thread.yield(); // Running -> Ready
+  
+  Thread t = new Second();
+  t.start(); // asynchron
+  t.interrupt(); // Von aussen unterbrechen, fals kooperativs Canceling (dirty).
+  
+  t.join(); // wait till t terminates
+  boolean isFalse = t.isAlive();
+
+  Thread current = Thread.currentThread();
+  current.setDeamon(boolean on) // Deamon Thread
+}
+\end{lstlisting}
+\maintopic{Failures - not good topic}
+\begin{tight-itemize}
+	\item{\textbf{Race Condition:} Zwei Threads verändern die gleiche Variable. Aenderungen werden überschrieben. Data Races (low-level), Semantisch höhere Race Conditions (high-level) - set(get+1);}
+	\item{\textbf{Deadlocks:} Gegenseitiges Aussperren von Threads. Threads blockieren sich}
+	\item{\textbf{Data Race:} Unsynchronisierter Zugriff auf gleichen Speicher. Mindestens ein Write!}
+	\item{\textbf{Starvation:} Kontinuierliche-Fortschrittsbehinderung von Threads wegen Fairness-Problemen. Andere Threades überholen mich.}
+	\item{\textbf{Starvation Vermeidung:} Länger wartende Threads bevorzugen \& fairness...}
+	\item{\textbf{Priority Inversion:} Hoch prioritärer Thread wartet auf Bedingung von tief prioritärem Thread}
+	\item{\textbf{Critical Section:} Nur von einem Thread zur gleichen Zeit ausführbar}
+	\item{\textbf{Mutual Exclusion:} Gegenseitiger Ausschluss, wichtig bei Ciritical Section.}
+	\item{Verzichtbare Fälle: \\
+	Immutability: Unveränderlichbare Objekte mit NUR lesendem Zugriff \\
+	Confinement: Objekt gehört nur einem Thread zu einer Zeit.}
+	\item{Thread Confinement: Objekt nur über Referenz von einem Thread erreichbar}
+	\item{Object Confinement: Objekt in anderem bereits synchronisierten Objekt eingekapselt}
+	\item{\textbf{Livelock:} Threads haben sich permanent gegenseitig blockiert - Deadlock durch Bedingung}
+	\item{\textbf{Deadlock Vermeidung:} Lineare Ordnung, nur geschachtelt in aufsteigender Reihenfolge auf die Resourcen zugreifen. Oder Grobgranulare locks.}
+	\item{\textbf{Parallele Korrektheit:} Keine Deadlocks, keine Race Conditions, keine Starvation}
+	\item{\textbf{Overrun issue:} if->while. Falls aufgeweckt, kann anderer Thread in der zwischenzeit ändern.}
+\end{tight-itemize}
+
+\maintopic{Synchronisationsprimitiven}
+\subtopic{Monitor = synchronized}
+\begin{lstlisting}
+class BoundedBuffer<T> {
+    private Queue<T> queue = new LinkedList<>();
+    int limit; // initialize in constructor
+
+    public synchronized void put(T x) throws InterruptedException {
+        while (queue.size() == limit) {
+            wait(); // await non-full
+        }
+        queue.add(x);
+        notifyAll(); // signal non-empty
+    }
+    public synchronized T get() throws InterruptedException {
+        while (queue.size() == 0) {
+            wait(); // await non-empty
+        }
+        T x = queue.remove();
+        notifyAll(); // signal non-full
+        return x;
+    }
+    /* Nur put oder get kann gleichzeitig ausgefuehrt werden,
+    synchronized 'markiert' critical section. */
+}
+
+class Syntax {
+    public static void synchronized classLock(){ }
+    public        void synchronized objectLock() {}     
+    public void synchronized sameSytax(){ 
+      synchronized(this){ } // this = monitorObject, objectLock
+      synchronized(Syntax.class){} // class lock
+      nestedLock(); // works because I'have the lock
+    }
+    public void synchronized nestedLock(){
+       try{
+       Thread.sleep(1); // gibt lock nicht frei
+       Thread.yield(); // gibt lock nicht frei
+       wait(); // gibt alle gehaltenen Locks frei
+       notifyAll(); // signal and continue, 
+                    // weckt alle wartenden Threads auf
+       notify(); // signal and continue, weckt irgendein Thread auf
+       }catch(InterrupedException e){
+          // for spurious wakeup or Thread.interrupt();
+       }
+    } 
+}
+\end{lstlisting}
+
+\subtopic{Semaphore}
+\begin{lstlisting}
+class BoundedBuffer<T> {
+    private Queue<T> queue = new LinkedList<>();
+    private Semaphore upperLimit = new Semaphore(Capacity, true);
+    private Semaphore lowerLimit = new Semaphore(0, true);
+    private Semaphore mutex = new Semaphore(1, true);
+    public void put(T item) throws InterruptedException {
+        upperLimit.acquire(); // Warten, falls Zaehler <= 0
+        mutex.acquire(); queue.add(item); mutex.release();
+        lowerLimit.release();
+    }
+    public T get() throws InterruptedException {
+        lowerLimit.acquire();
+        mutex.acquire(); T item = queue.remove(); mutex.release();
+        upperLimit.release();
+        return item;
+    }
+    
+    public void otherMethods(){
+    /* 
+    lowerLimit.acquire(10) wartet, solange Zaehler < permits ist
+    lowerLimit.release(10) Zaehler += permits
+    */
+    }
+}
+\end{lstlisting}
+\subtopic{Lock \& Conditions}
+\begin{lstlisting}
+class BoundedBuffer<T> {
+    private Queue<T> queue = new LinkedList<>();
+    private Lock monitor = new ReentrantLock(true);
+    private Condition nonFull = monitor.newCondition();
+    private Condition nonEmpty = monitor.newCondition();
+    public void put(T item) throws InterruptedException {
+        monitor.lock();
+        try {
+            while (queue.size() == Capacity) { nonFull.await(); }
+            queue.add(item);
+            nonEmpty.signal();
+        } finally { monitor.unlock(); }
+    }
+    public T get() throws InterruptedException {
+        monitor.lock();
+        try {
+            while (queue.size() == 0) { nonEmpty.await(); }
+            T item = queue.remove();
+            nonFull.signal();
+            return item;
+        } finally { monitor.unlock(); }
+    }
+}
+\end{lstlisting}
+\subtopic{Read \& Write Lock}
+\begin{lstlisting}
+ReadWriteLock rwLock = new ReentrantReadWriteLock(true);
+rwLock.readLock().lock();
+// read-only accesses
+rwLock.readLock().unlock();
+rwLock.writeLock().lock();
+// write (and read) accesses
+rwLock.writeLock().unlock();
+\end{lstlisting}
+\subtopic{CountDown Latch}
+\begin{lstlisting}
+CountDownLatch startWhenFiveAreThere = new CountDownLatch(5);
+startWhenFiveAreThere.countDown(); // Counter-1
+startWhenFiveAreThere.await(); // Wait till counter == 0
+// Latch sind nur einmal verwendbar.
+\end{lstlisting}
+\subtopic{Cyclic Barrier}
+\begin{lstlisting}
+// Treffpunkt fuer fixe Anzahl Threads
+CyclicBarrier gameRound = new CyclicBarrier(3);
+//3 Players:
+while(true){
+	gameRound.await();
+	//play as soon as all 3 are ready
+} // gameRound.reset() - setzt CyclicBarrier zurueck
+\end{lstlisting}
+\subtopic{Phaser}
+Verallgemeinerte Cyclic Barrier
+\begin{lstlisting}
+Phaser phaser = new Phaser(0);
+phaser.register();
+while(...) {
+  phaser.arriveAndAwaitAdvance();
+  playRound();
+}
+phaser.arriveAndDeregister();
+\end{lstlisting}
+\subtopic{Rendez-Vous}
+\begin{lstlisting}
+//Spezialfall: Nur 2 Parteien
+CyclicBarrier cb = new CyclicBarrier(2);
+// CyclicBarrier mit Semaphore
+class CyclicBarrier {
+  private int p, counter = 0;
+  private Semaphore b = newSemaphore(0);
+  private Semaphore c = newSemaphore(0);
+  public CyclicBarrier(int p) { this.p = p; }
+  public void await() {
+    synchronized(this){
+      counter++;
+      if (counter == p) { b.release(p); }
+    }
+    b.acquire();
+    synchronized(this){
+      counter--;
+      if (counter == 0) { c.release(p); }
+    }
+    c.acquire();
+  }
+}
+//Mit Informationsaustausch: Exchanger.exchange(something);
+\end{lstlisting}
+\maintopic{Thread Pool Konzept}
+\begin{tight-itemize}
+	\item{\textbf{Task Queue:} Tasks in Warteschlange}
+	\item{\textbf{Task Pool:} Beschränkte Anzahl Worker-Threads holen Tasks und machen...}
+	\item{\textbf{Pool Vorteile:} Beschränkte Anzahl Threads, Recycling der Threads, Höhere Abstraktion}
+	\item{\textbf{Pool Einschränkungen:} Tasks müssen unabhänig sein, Run to completion}
+\end{tight-itemize}
+%YOLO - Fire and Forget!
+\begin{lstlisting}
+ExecutorService tp = Executors.newFixedThreadPool(nofThreads); 
+// Automatische Anzahl Worker Threads
+ExecutorService tp2 = Executors.newCachedThreadPool(); 
+ExecutorService tp3 = Executors.newWorkStealingPool();
+Future<Integer> future1 = threadPool.submit(() -> {return 0;});
+int result1 = future1.get(); // Wartet auf Task Ende und holt 
+///Result im Fehlerfall ExecutionException
+threadPool.shutdown(); //Threadpool muss heruntergefahren werden
+class ComplexCalculation1 implements Callable<Integer> {
+  @Override
+  public Integer call() throws Exception{ return 0; }
+}
+\end{lstlisting}
+\maintopic{RecursiveTask}
+\begin{lstlisting}
+class SearchTask extends RecursiveTask<Boolean>{
+   // per constructor
+   private List<String> words; private String pattern;
+   protected Boolean compute(){
+     int n = words.size();
+     if( n == 0) return false;
+     if( n == 1) return words.get(0).matches(pattern);
+     SearchTask left = new SearchTask(words.sublist(0, n/2), pattern);
+     SearchTask right = new SearchTask(words.sublist(n/2, n), pattern);
+     // alternative invokeAll(left, right);
+     left.fork(); right.fork();
+     return right.join() || left.join(); 
+   }
+}
+ForkJoinPool threadPool = new ForkJoinPool() 
+// Alternative: ForkJoinPool.commonPool(); 
+threadPool.invoke(new mySuperTask());
+//Kein Shutdown noetig, da Worker-Threads als Deamon Threads laufen.
+\end{lstlisting}
+\maintopic{Task Parallel Library (TPL)}
+\begin{lstlisting}
+CompletableFuture<Long> future = CompletableFuture.supplyAsync(() -> longOperation());
+//other work
+process(future.get());
+future.thenAccept(result -> System.out.println(result -> System.out.println(result));
+CompletableFuture.allof(future1, future2).thenAccept(continuation);
+ComplteableFuture.any(future1, future2).thenAccept(continuation);
+\end{lstlisting}
+\maintopic{.net}
+\begin{tight-itemize}
+	\item{\textbf{Exception in Threads:} Exception in Threads fürht zu Abbruch des gesamten Programs.}
+	\item{\textbf{volatile} auch von java kopiert}
+	\item{\textbf{Lokale Variabeln:} Lokale Variabeln müssen nicht Read-only (final) sein.}
+	\item{\textbf{Delegate:} Referenz auf Methode}
+\end{tight-itemize}	
+\begin{lstlisting}
+delegate void ThreadStart();
+ThreadStart myDelegate = () => { finished = true; };
+/* --- */
+class BankAccount {
+  private decimal balance;
+  private object syncObject = new object();
+  public void Withdraw(decimal amount) {
+    lock(syncObject) {
+      while (amount > balance) {
+        Monitor.Wait(syncObject);
+      }
+      balance -= amount;
+    }
+  }
+  public void Deposit(decimal amount) {
+    lock(syncObject) {
+     balance += amount;
+         Monitor.PulseAll(syncObject);
+    }
+  }
+}
+/* --- */
+Task task = Task.Factory.StartNew(() => {
+   // task implementation
+});
+task.Wait();
+// alternative: Console.Write(task.Result); // blockiert
+long sum = 0;
+Parallel.ForEach(list, file => {
+  int subTotal = ..
+  lock(someLockObject){
+    sum += subTotal;
+  }
+});
+Parallel.For(0, 100, (index) => { /* use index */ });
+// start two tasks and wait
+Task a = Task.Factory.StartNew( () => _myMethod());
+Task b = Task.Factory.StartNew( () => _myMethod());
+Task.WaitAll(a, b);
+// TPL
+ThreadPool.SetMaxThreads(100); // max thread auf 100 fixieren
+// ohne maxThread werden Threads dynamisch erzeugt ( auch Thread Injection genannt)
+\end{lstlisting}
+\subtopic{Async \& Await Fehler}
+\begin{tight-itemize}
+    \item{Versehentlicher blockierender asynch: await vergessen, methode ist synchron}
+    \item{Threadwechsel innerhalb der Methode: Vorsicht lokale Variablen!}
+    \item{Quasiparallelität: foreach von collection -> collection kann verändert werden}
+    \item{Race-condition möglich}
+    \item{UI-Deadlock: return await Task.Run(..)}
+\end{tight-itemize}
+\newpage
+\maintopic{GUI}
+\begin{lstlisting}
+// Java
+SwingUtitilties.invokeLater(runnable);
+SwingUtitilties.invokeAndWait(runnable);
+// .Net: call is sync
+async Task<string> ConcatWebSitesAsync(string url1, string url2) {
+    HttpClient client = new HttpClient();
+    Task<string> download1 = client.GetStringAsync(url1);
+    Task<string> download2 = client.GetStringAsync(url2);
+    // now the following part is async
+    string site1 = await download1; // download1 runs in separate thread
+    string site2 = await download2;
+    // oder 'site1 = await new Task(() -> myMethod());
+    return site1 + site2;
+}
+// special case UI
+async void startDownload_Click(...) {
+    HttpClient client = new HttpClient();
+    foreach (var url in collection) {
+        var data = await client.GetStringAsync(url);
+        // this runs in UI thread
+        textArea.Content += data;
+    }
+    // problems: collection might change 
+}
+// ohne await keine Asychronitaet
+// async methode muss await enthalten
+// await anweisung nur in async methode
+\end{lstlisting}
+\maintopic{Memory Model}
+\begin{tight-itemize}
+    \item{\textbf{Weak Memory Consistency} Sepeicherzugriff kann in verschieden Reihenfolge geschehen}
+    \item{\textbf{JVM Minimale Garantien} Atomicity (Unteilbarkeit) \\ Visibility ( Sichtbarkeit) 
+        \\ Ordering (Reihenfolge)}
+    \item{\textbf{Zugriff auf Variable} Primitive Datentypben bis 32bit atomar, Objeckt-Refernz atomar, volatile Variable ist atomar (long und double mit volatile ja )}
+    \item{\textbf{instanzierung mit Zuweisung nicht atomar} }
+    \item{\textbf{Java Visibility Garantien:} garatiert bei: Locks Release \& Aquire, Volatile variable zugriff, initialisierung von final Variable, Thread start und join }
+    \item{\textbf{Java Volatile Keyword} Atomares schreiben für long und double, Aenderungen werden anderen Zugreifenden propagiert, Kein Umordnung durch Compiler / Laufzeitsystem / CPU}
+\end{tight-itemize}
+\begin{lstlisting}
+class SpinLock{
+  private AtomicBoolean locked = new AtomicBoolena(false);
+  public void aquire(){
+    while(locked.getAndSet(true)){
+      Thread.yield();
+    }
+  }
+  public  void release(){ locked.set(false); }
+  // locked.compareAndSet(expected, update)
+  // locked.updatedAndGet(x -> true);
+  // locked.getAndSet(false)
+}
+// Optimistische Synchronisation
+do{
+    oldValue = var.get();
+    newValue = calculate();
+} while(!var.compareAndSet(oldValue, newValue))
+// Java 8: var.updatedAndget(old -> calculate(old));
+// ABA Problem:
+// Thread 1 -> set to A
+// Thread 2 -> set to B -> set to A
+// Thread 1 sees A and updates value
+// ----
+AtomicReference<Node<T>> top = new AtomicReference<>();
+void push(T value) {
+  Node<T> newNode = new Node<>(value);
+  Node<T> current;
+  do {
+    current = top.get();
+    newNode.setNext(current);
+  } while (!top.compareAndSet(current, newNode));
+}
+\end{lstlisting}
+%volatile int x; \\
+%\begin{center}
+%    \includegraphics[width=0.2\textwidth]{img/volatile.png}
+%\ end{center}
+\maintopic{Actor}
+\begin{tight-itemize}
+	\item{\textbf{Vorteile} Aktive Objekte, kein Shared Memory, Kommunikation zwisschen Objekten, kein Race Condition}
+\end{tight-itemize}
+\begin{lstlisting}
+public class NumberPrinter extends UntypedActor {
+ public void onReceive(final Object message) {
+  if (message instanceof Integer) {
+    System.out.print(message);
+  }
+ }
+}
+ActorSystem system = ActorSystem.create("System")
+ActorRef printer = system.actorOf(Props.create(NumberPrinter.class));
+for (int i = 0; i < 100; i++) {
+    printer.tell(i, ActorRef.noSender());
+    //tell(message, sender)
+    //getSelf() sefl ref, getSender() sender ref
+}
+Future<Object> result = Patterns.ask(actorRef, msg, timeout);
+system.shutdown();
+\end{lstlisting}
+
+\maintopic{GPU Parallelisierung}
+\begin{tight-itemize}
+	\item{SM: Streaming Multiprocessor. Hat mehrere SP}
+	\item{SP: Streaming Processor. }
+  	\item{SIMD: Single Instruction Multiple Data, Vektorparalleliserung}
+    \item{NUMA: Non-Uniform Memory Access -> Host-Memory zu Device-Memory}
+    \item{Grid: Hat mehrere Blöcke}
+    \item{CUDA Block: Threads sind in Blöcke gruppiert }
+    \item{Thread = virtueller Skalarprozessor}
+    \item{Block = virtueller Multiprozessor}
+    \item{Block müssen unabhängig sein, run-to-completion}
+    \item{Blockgrösse vielfaches von 32}
+    \item{Shared Memory: Per SM, schnell (4), nur zwischen Threads innerhalb Block sichtbar, paar KB }
+    \item{Global Memory: Main memory, langsam (400-600), allen threads sichtbar, mehrer GB}
+    \item{Warp: Block wird intern in 32-Threds Warp zerlegt}
+    \item{Block läuft auf SM, Warp läuft auf SP eines einzigen SM}
+    \item{Divergenz: Unterschiedliche Verzweigung im selben Warp, SM führt Verzweigung, die anderen warten}
+    \item{Memory Coalescing: Zugrifssmuster der Threads, falls aufeinanderfolgende Daten -> in ein Memory Burst}
+\end{tight-itemize}
+
+\begin{lstlisting}
+void CudaVectorAdd(float* A, float* B, float* C, int N) {
+  size_t size = N * sizeof(float);
+  float *d_A, *d_B, *d_C;
+  // in Device Memory allozieren
+  handle(cudaMalloc(&d_A, size)); 
+  handle(cudaMalloc(&d_B, size));
+  handle(cudaMalloc(&d_C, size));
+  
+  handle(cudaMemcpy(d_A, A, size, cudaMemcpyHostToDevice));
+  handle(cudaMemcpy(d_B, B, size, cudaMemcpyHostToDevice));
+  
+  int blockDim = 512, gridDim = (N + blockDim - 1) / blockDim;
+  // gridDim = Anzahl Bloecke, blockDim Anzahl Threads per Block
+  VectorAddKernel<<<gridDim, blockDim>>>(d_A, d_B, d_C, N);
+  handle(cudaGetLastError());
+  
+  handle(cudaMemcpy(C, d_C, size, cudaMemcpyDeviceToHost));
+  handle(cudaFree(d_A)); handle(cudaFree(d_B));
+  handle(cudaFree(d_C));
+}
+void handle(cudaError error) {
+  if (error != cudaSuccess) {
+    fprintf(stderr, "CUDA: %s!\n",
+    cudaGetErrorString(error));
+    exit(EXIT_FAILURE);
+  }
+}
+__global__
+void VectorAddKernel(float *A, float *B, float *C, int N) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < N) {    C[i] = A[i] + B[i];   }
+}
+// 3D Blocks / Grid
+dim3 gridDim(3, 2, 1); dim3 blockDim(4,3,1);
+Function<<gridDim, blockDim>>();
+// Jagged array
+float *matrix =
+(float *)malloc(NofRows * NofCols * sizeof(float));
+matrix[row * NofCols + col] = //..
+
+// Matrix Multiplikation
+__global__
+void multiply(float *A, float *B, float *C) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  int j = blockIdx.y * blockDim.y + threadIdx.y;
+  if (i < N && j < M) {
+  float sum = 0;
+  for (int k = 0; k < K; k++) {
+    // sum = A[i,k ] * B[k,j]
+    sum += A[i * K + k] * B[k * M + j];
+  }
+  // C[i,j] = sum
+  C[i * M + j] = sum;
+  }
+}
+// __syncthreads wartet auf alle Threds innerhabl Block
+// in if-else -> zwei Barriere
+// __shared__ float x;
+// statische array-groesse notwendig
+__shared__ float Asub[TILE_SIZE][TILE_SIZE];
+__shared__ float Bsub[TILE_SIZE][TILE_SIZE];
+
+int tx = threadIdx.x, ty = threadIdx.y;
+int col = blockIdx.x * TILE_SIZE + tx;
+int row = blockIdx.y * TILE_SIZE + ty;
+
+for (int tile = 0; tile < nofTiles; tile++) {
+  Asub[ty][tx] = A[row * K + tile * TILE_SIZE + tx];
+  Bsub[ty][tx] = B[(tile * TILE_SIZE + ty) * M + col];
+  __syncthreads();
+  for (int ksub = 0; ksub < TILE_SIZE; ksub++) {
+    sum += Asub[ty][ksub] * Bsub[ksub][tx];
+  }
+  __syncthreads();
+}
+C[row * M + col] = sum;
+// Divergenz:
+// gut -> da alle 32-er War selbe machen
+if (threadIdx.x / 32 > 1) { } else { }
+// Coalescing ist gut falls + threadIdx.x
+data[(Ausdruck ohne threadIdx.x) + threadIdx.x]
+\end{lstlisting}
+\maintopic{Cluster}
+\begin{tight-itemize}
+	\item{Head Node: Zugriffspunkt, rest Compute Nodes }
+	\item{Job Manager für Monitoring}
+	\item{HPC Job = vom Client lanciert, hat mehrer Tasks}
+	\item{HPC Task = Zugriff auf Fle Shares, Ausführung eines Executables, Abhängigkeit zwischen Tasks möglich}
+	\item{MPI: basiert auf Actor/CSP, Standard}
+	\item{Communicator: Gruppen von MPI Prozessen}
+	\item{Communicator-World: Alle Prozesse einer Ausführun}
+\end{tight-itemize}
+
+\begin{lstlisting}
+// starten: mpiexec (minus)n 16 FirstMpiProgram.exe  
+// send message
+world.Send(value, to, tag);
+// receive message
+world.Receive(0, tag, out value);
+world.Broadcast(ref value, senderRank); // an alle schicken
+Communicator.world.Barrier() // alle Prozesse Warrten
+// Teilresutate aggregieren, jeder enthaelt Teilresultat
+world.Allreduce(value, (a,b) => a + b);
+// nur rank sieht sum
+world.Allreduce(value, (a,b) => a + b, rank);
+// jeder sendet verschieden Werte an alle 
+// nacher haben alle die Werten von jedem
+outputArray = Alltoall(inputArray); 
+// sende Array an alle, nur ein Wert
+value = Scatter(array, senderRank);
+// einzelne Werte als array sammeln
+outputArray = Gather(value, receiverRank);
+\end{lstlisting}
+
+\maintopic{Reactive Programming}
+\begin{tight-itemize}
+	\item{PLINQ Resultate ungeordnet, Java 8 Stream sind geordnet}
+	\item{Pull: Pipeline-Schritt rückwärst, Input-Quelle is passiv, iteration}
+	\item{Reactive = Push-Mechanismus: Input-Quelle/Arbeitsschritt is aktiv }
+	\item{Rx: Observer und Observerbable, beides = Subject}
+\end{tight-itemize}
+
+\begin{lstlisting}
+var subject = new Subject<string>();
+subject.Subscribe(Console.WriteLine);
+subject.OnNext("A");
+subject.OnCompleted(); // ende der seq. 
+subject.OnError() // ende bei Error
+subject.Subscribe(delegateNext, delegateError, delegateComplete);
+
+// Subject: Kein buffer, keine alten Werte
+// ReplaySubject: alle alte Werte, unlimited Buffer
+// BehaviourSubject: observer hat letzten Wert, 1 Element Buffer
+// AsyncSubject: letzter Wert bei OnComplete
+var replay = new ReplaySubject<string>();
+
+var merged = oneCollecte.ToObserverable().Merge(subject);
+// default synchron, mit diesem asynch.
+subject.ObserverOn(TaskPoolScheduler.Default); 
+// in UI-Thread
+subject.ObserverOnDispatcher().Subscribe();
+// Moegliche Fehler: Race Condition ( Seiten effekt )
+// Deadlock ( Dependency bei Observer )
+// Observerable.Rangle(start,end)
+// hot = aktiv Observable: notifizieren spontan, ohne registrierte Observer
+// cold = passiv Observable: on request, erst bei anmeldung
+\end{lstlisting}
+
+\maintopic{Software Transactional Memory}
+\begin{tight-itemize}
+    \item{Atomarice Sequenzen von Operationen}
+    \item{keine inkonsistente Zwischenzustände}
+    \item{ACI TX: Atomicity ( vollständig oder gar nicht sauber) , Consistency (programm vor und nach TX gültig), Isolation (as-if-seriell) }
+    \item{Deskriptiv: was ist atomar, automatisch isolation, nur Speicherzugriff isoliert}
+    \item{Problem: Starvation gefahr, Seiteneffekt bei SW-TX bleibt sichtbar}
+    \item{Nested TX: Commit bei Top-Level TX}
+    \item{HW Support Intel TSX}
+    \item{Scala: Wrapping von Variable}
+    \item{Scala: Write Skew nicht möglich, Starvation problem}
+\end{tight-itemize}
+
+\begin{lstlisting}
+final Ref.View<Integer> balance = STM.newRef(0);
+void deposit(int amount) {
+  M.atomic(() -> {
+    balance.set(balance.get() + amount);
+  });
+}
+void withdraw(int amount) {
+  STM.atomic(() -> {
+    if (balance.get() < amount) {
+      STM.retry();
+    }
+    balance.set(balance.get() - amount);
+  });
+}
+// bei Exception wird rollback
+// write sekew:
+atomic { if (b.onDuty) { a.onDuty = false; } }
+atomic { if (a.onDuty) { b.onDuty = false; } }
+\end{lstlisting}\vspace{-15px}
+
+\maintopic{Misc}
+\begin{lstlisting}
+Collections.synchronizedList(list); 
+/ ..Collection(...) / ..Map...()
+// Lockfreie Datenstrukturen
+ConcurrentLinkedQueue<V>, ConcurrentLinkedDeque<V>
+ConcurrentSkipListSet<V>, ConcurrentHashMap<K, V>
+ConcurrentSkipListMap<K, V>
+\end{lstlisting}
+
+\begin{tight-itemize}
+    \item{OutOfMemory Gründe: Kosten zwischen 128kB bis 1MB pro Thread}
+    \item{notify() vs notifyAll(): Notify() reicht aus, wenn alle Threads auf eine Bedignug warten.}
+\end{tight-itemize}
+
+\begin{lstlisting}
+public class UpgradeableReadWriteLock {
+  private ReadWriteLock readWriteLock = 
+  new ReentrantReadWriteLock(true);
+  private Lock mutex = new ReentrantLock(true);
+
+  public void readLock() throws InterruptedException {
+    readWriteLock.readLock().lock();
+  }
+  public void readUnlock() {
+    readWriteLock.readLock().unlock();
+  }
+  public void upgradeableReadLock() 
+  throws InterruptedException {
+    mutex.lock();
+  }
+  public void upgradeableReadUnlock() { mutex.unlock(); }
+  public void writeLock() throws InterruptedException {
+    mutex.lock();
+    readWriteLock.writeLock().lock();
+  }
+  public void writeUnlock() {
+    mutex.unlock();
+    readWriteLock.writeLock().unlock();
+  }
+}
+//--
+CompletableFuture<String> as = CompletableFuture.supplyAsync(() -> {
+});
+as.thenAccept(result -> {});
+// ForkJoinPool
+invokeAll(a, b) == a.fork(); b.fork(); b.join(); a.join();
+// --
+// lock free stack - herausnehmen, falls platzmangel
+public class LockFreeStack<T> implements Stack<T> {
+    private AtomicReference<StackNode<T>> topNode;
+    private StackNode<T> bottomElement = new StackNode<T>(null);
+    public LockFreeStack(){
+        topNode = new AtomicReference<>(bottomElement);
+    }
+    public void push(T value) {
+        StackNode<T> currentTop;
+        StackNode<T> nextTop;
+        do{
+            currentTop = topNode.get();
+            nextTop = new StackNode<>(currentTop, value);
+        }while (!topNode.compareAndSet(currentTop, nextTop));
+    }
+
+    public T pop() {
+        StackNode<T> currentTop;
+        do{
+            currentTop = topNode.get();
+        }while(currentTop != bottomElement
+        && !topNode.compareAndSet(currentTop, currentTop.getNextElement()));
+        return currentTop.getValue();
+    }
+}
+// AtomicInteger a = new AtomicInteger(10);
+// a.updateAndGet(i -> i + 2);
+
+\end{lstlisting}
+
+\maintopic{Checklist}
+\begin{tight-itemize}
+    \item{ThreadPool shutdown nicht vergessen}
+    \item{GPU: Boundry Check wegen zusätzlichen Threads}
+    \item{wenn wait() oder Condition.await() -> InterruptedException nicht vergessen}
+    \item{try-finall nicht vergessen, wenn lock}
+    \item{Beim eigenen Code: parameter checks ( null check, negative check)}
+    \item{Bei CyclicBarrier.await() ist BarrierBrokenException möglich}
+    \item{Spurious wakeup auch möglich als Fehler.}
+\end{tight-itemize}
+\begin{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{verbatim}
+\end{multicols}
+
+\end{document}
