@@ -554,10 +554,12 @@ task1.WhenAll(t1, t2).WhenAny(t3, t4).ContinueWith(t5)
 	\item{Andere Threads müssen UI-Änderungen als Events an UI-Thread senden}
 \end{tight-itemize}
 \begin{lstlisting}
-// Java (UI-Thread = Event Dispatching Thread (EDT))
-SwingUtitilties.invokeLater(() -> { // clean Swing GUI setup
-	frame.pack(); frame.setVisible(true);
-}); //run in UI-Thread (end of main method)
+ExecutorService threadPool = ForkJoinPool.commonPool();
+threadPool.submit(() -> { // async actions
+    SwingUtitilties.invokeLater(() -> { // UI-Thread
+        frame.pack(); frame.setVisible(true);
+    });
+});
 SwingUtitilties.invokeAndWait(runnable); // synchronous
 // .Net: call is sync
 async Task<string> ConcatWebSitesAsync(string url1, string url2) {
